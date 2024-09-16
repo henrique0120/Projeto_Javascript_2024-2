@@ -14,34 +14,39 @@
   </head>
 
   <body class="d-flex align-items-center justify-content-center vh-100">
-    <main class="form-signin m-auto">
+    <main class="form-signin">
       <form action="/login" method="POST">
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label"
-            >Email address</label
-          >
-          <input type="email" class="form-control" name="username" />
-          <div id="emailHelp" class="form-text"><%= text %></div>
+          <label for="exampleInputEmail1" class="form-label">Email:</label>
+          <input type="email" class="form-control form-control-lg w-100" name="username" />
         </div>
         <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input type="password" class="form-control" name="password" />
+          <label for="exampleInputPassword1" class="form-label">Senha:</label>
+          <input type="password" class="form-control form-control-lg w-100" name="password" />
         </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Filial</label>
-          <input type="text" class="form-control" name="filial" />
-        </div>
+      
 
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-          <label class="form-check-label" for="exampleCheck1"
-            >Check me out</label
-          >
-        </div>
-        <button type="login" class="btn btn-primary">Login</button>
-        <a class="btn btn-primary" href="/register" role="button">Register</a>
+        <style>
+          #formHelp {
+            font-size: 1.25rem; /* Aumenta o tamanho do texto */
+          }
+        </style>
+
+        <% if (error_msg) { %>
+          <div id="formHelp" class="form-text mb-3 w-100">
+            <%= error_msg %>
+          </div>
+        <% } %>
+
+        <% if (success_msg) { %>
+          <div id="formHelp" class="form-text mb-3 w-100">
+            <%= success_msg %>
+          </div>
+        <% } %>
+        
+        <button type="login" class="btn btn-primary btn-lg">Login</button>
+        <a class="btn btn-primary" href="/register" role="button">Criar uma conta</a>
       </form>
     </main>
   </body>
-  <%- include("partials/footer.ejs") %>
 </html>
