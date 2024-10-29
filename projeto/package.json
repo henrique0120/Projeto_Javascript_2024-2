@@ -12,14 +12,19 @@
   "dependencies": {
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
+    "buffer-crc32": "^1.0.0",
     "connect-flash": "^0.1.1",
     "connect-pg-simple": "^9.0.1",
+    "cookie": "^0.7.2",
     "ejs": "^3.1.10",
-    "express": "^4.19.2",
+    "express": "^4.21.0",
     "express-session": "^1.18.0",
-    "nodemon": "^3.1.4",
+    "mime": "^4.0.4",
+    "nodemon": "^3.1.7",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
-    "pg": "^8.12.0"
+    "pg": "^8.12.0",
+    "qs": "^6.13.0",
+    "uid2": "^1.0.0"
   }
 }

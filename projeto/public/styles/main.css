@@ -9,6 +9,18 @@ body {
 
 }
 
+.form-select {}
+
+.aa {
+    margin-left: 5px;
+    background-color: red;
+    transition: background-color 0.3s ease;
+}
+
+.aa:hover {
+    background-color: darkred;
+}
+
 main {
     flex: 1 auto;
 }
@@ -56,6 +68,7 @@ footer {
 
 /* Declare heights because of positioning of img element */
 .carousel-item {
+
     height: 32rem;
 }
 
