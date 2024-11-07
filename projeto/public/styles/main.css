@@ -39,17 +39,19 @@ body {
 header,
 footer {
     flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    flex: 0 0 auto;
 }
 
 .dropdown {
     margin-right: 30px;
     position: absolute;
-    /* Posiciona o dropdown absolutamente em relação à navbar */
     right: 0;
-    /* Alinha o dropdown à direita da navbar */
 
-    /* Posiciona o dropdown logo abaixo da navbar */
-    /* Outros estilos para o dropdown */
 }
 
 /* CUSTOMIZE THE CAROUSEL

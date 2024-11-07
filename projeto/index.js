@@ -15,12 +15,13 @@ const saltRounds = 10;
 
 
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'projeto',
-  password: '123',
-  port: 5432
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
+
+module.exports = pool;
 
 const pgSession = connectPgSimple(session);
 
