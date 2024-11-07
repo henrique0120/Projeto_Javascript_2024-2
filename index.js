@@ -23,10 +23,10 @@ const pool = new Pool({
 export default pool;
 
 //const pool = new Pool({
-// user: 'postgres',
-// host: 'postgresql://postgres:DYOUzXYpMsuiEiWoeqNYcwfKiomrGdmS@autorack.proxy.rlwy.net:45179/railway',
-//database: 'railway',
-// password: 'DYOUzXYpMsuiEiWoeqNYcwfKiomrGdmS',
+//user: 'postgres',
+//host: 'localhost',
+//// database: 'projeto',
+// password: '123',
 //port: 5432
 //});
 
@@ -109,7 +109,7 @@ app.get("/constProduct", async (req, res) => {
   let text = '';
   try {
     const currentFilial = req.session.passport.user.filial;
-    const result = await db.query('SELECT * FROM products where product_filial = $1', [currentFilial]);
+    const result = await pool.query('SELECT * FROM products where product_filial = $1', [currentFilial]);
     const dados = result.rows;
     res.render('constProduct.ejs', { dados, text },);
   } catch (err) {
@@ -122,7 +122,7 @@ app.get("/deleteProduct", async (req, res) => {
   let text = '';
   try {
     const currentFilial = req.session.passport.user.filial;
-    const result = await db.query('SELECT * FROM products where product_filial = $1', [currentFilial]);
+    const result = await pool.query('SELECT * FROM products where product_filial = $1', [currentFilial]);
     const dados = result.rows;
     res.render('deleteProduct.ejs', { dados, text },);
   } catch (err) {
@@ -137,7 +137,7 @@ app.post("/deleteProduct", async (req, res) => {
   const lote = req.body.delLote;
   const currentFilial = req.session.passport.user.filial;
 
-  const tabela = await db.query('SELECT * FROM products WHERE product_filial = $1', [currentFilial]);
+  const tabela = await pool.query('SELECT * FROM products WHERE product_filial = $1', [currentFilial]);
 
   try {
     if (categoria === '' || consulta === '') {
@@ -149,14 +149,14 @@ app.post("/deleteProduct", async (req, res) => {
     if (categoria === "Alimentos" && consulta === "Desconto") {
       if (!lote) {
         let text = "";
-        await db.query("DELETE FROM products WHERE date <= CURRENT_DATE + INTERVAL '3 months' AND category = $1 AND product_filial = $2", ["Alimentos", currentFilial]);
-        const updatedData = await db.query('SELECT * FROM products WHERE product_filial = $1', [currentFilial]);
+        await pool.query("DELETE FROM products WHERE date <= CURRENT_DATE + INTERVAL '3 months' AND category = $1 AND product_filial = $2", ["Alimentos", currentFilial]);
+        const updatedData = await pool.query('SELECT * FROM products WHERE product_filial = $1', [currentFilial]);
         const dados = updatedData.rows;
         res.render('deleteProduct.ejs', { dados, text });
       } else {
         let text = "";
-        await db.query("DELETE FROM products WHERE date >= CURRENT_DATE + INTERVAL '3 months' AND category = $1 AND product_filial = $2 AND lote = $3", ["Alimentos", currentFilial, lote]);
-        const updatedData = await db.query('SELECT * FROM products WHERE product_filial = $1', [currentFilial]);
+        await pool.query("DELETE FROM products WHERE date >= CURRENT_DATE + INTERVAL '3 months' AND category = $1 AND product_filial = $2 AND lote = $3", ["Alimentos", currentFilial, lote]);
+        const updatedData = await pool.query('SELECT * FROM products WHERE product_filial = $1', [currentFilial]);
         const dados = updatedData.rows;
         res.render('deleteProduct.ejs', { dados, text });
       }
@@ -166,14 +166,14 @@ app.post("/deleteProduct", async (req, res) => {
         case "Retirada":
           if (!lote) {
             let text = "";
-            await db.query("DELETE FROM products WHERE date <= CURRENT_DATE + INTERVAL '1 months' AND date > CURRENT_DATE AND category = $1 AND product_filial = $2", [categoria, currentFilial]);
-            const updatedData = await db.query('SELECT * FROM products WHERE product_filial = $1', [currentFilial]);
+            await pool.query("DELETE FROM products WHERE date <= CURRENT_DATE + INTERVAL '1 months' AND date > CURRENT_DATE AND category = $1 AND product_filial = $2", [categoria, currentFilial]);
+            const updatedData = await pool.query('SELECT * FROM products WHERE product_filial = $1', [currentFilial]);
             const dados = updatedData.rows;
             res.render('deleteProduct.ejs', { dados, text });
           } else {
             let text = "";
-            await db.query("DELETE FROM products WHERE date <= CURRENT_DATE + INTERVAL '1 months' AND date > CURRENT_DATE AND category = $1 AND product_filial = $2 AND lote = $3", [categoria, currentFilial, lote]);
-            const updatedData = await db.query('SELECT * FROM products WHERE product_filial = $1', [currentFilial]);
+            await pool.query("DELETE FROM products WHERE date <= CURRENT_DATE + INTERVAL '1 months' AND date > CURRENT_DATE AND category = $1 AND product_filial = $2 AND lote = $3", [categoria, currentFilial, lote]);
+            const updatedData = await pool.query('SELECT * FROM products WHERE product_filial = $1', [currentFilial]);
             const dados = updatedData.rows;
             res.render('deleteProduct.ejs', { dados, text });
           }
@@ -182,15 +182,15 @@ app.post("/deleteProduct", async (req, res) => {
         case "Desconto":
           if (!lote) {
             let text = "";
-            await db.query("DELETE FROM products WHERE date <= CURRENT_DATE + INTERVAL '4 months' AND date > CURRENT_DATE + INTERVAL '1 months' AND category = $1 AND product_filial = $2", [categoria, currentFilial]);
-            const updatedData = await db.query('SELECT * FROM products WHERE product_filial = $1', [currentFilial]);
+            await pool.query("DELETE FROM products WHERE date <= CURRENT_DATE + INTERVAL '4 months' AND date > CURRENT_DATE + INTERVAL '1 months' AND category = $1 AND product_filial = $2", [categoria, currentFilial]);
+            const updatedData = await pool.query('SELECT * FROM products WHERE product_filial = $1', [currentFilial]);
             const dados = updatedData.rows;
             res.render('deleteProduct.ejs', { dados, text });
           }
           else {
             let text = "";
-            await db.query("DELETE FROM products WHERE date <= CURRENT_DATE + INTERVAL '4 months' AND date > CURRENT_DATE + INTERVAL '1 months' AND category = $1 AND product_filial = $2 AND lote = $3", [categoria, currentFilial, lote]);
-            const updatedData = await db.query('SELECT * FROM products WHERE product_filial = $1', [currentFilial]);
+            await pool.query("DELETE FROM products WHERE date <= CURRENT_DATE + INTERVAL '4 months' AND date > CURRENT_DATE + INTERVAL '1 months' AND category = $1 AND product_filial = $2 AND lote = $3", [categoria, currentFilial, lote]);
+            const updatedData = await pool.query('SELECT * FROM products WHERE product_filial = $1', [currentFilial]);
             const dados = updatedData.rows;
             res.render('deleteProduct.ejs', { dados, text });
           }
@@ -199,15 +199,15 @@ app.post("/deleteProduct", async (req, res) => {
         case "Vencidos":
           if (!lote) {
             let text = "";
-            await db.query("DELETE FROM products WHERE date < CURRENT_DATE AND category = $1 AND product_filial = $2", [categoria, currentFilial]);
-            const updatedData = await db.query('SELECT * FROM products WHERE product_filial = $1', [currentFilial]);
+            await pool.query("DELETE FROM products WHERE date < CURRENT_DATE AND category = $1 AND product_filial = $2", [categoria, currentFilial]);
+            const updatedData = await pool.query('SELECT * FROM products WHERE product_filial = $1', [currentFilial]);
             const dados = updatedData.rows;
             res.render('deleteProduct.ejs', { dados, text });
           }
           else {
             let text = "";
-            await db.query("DELETE FROM products WHERE date < CURRENT_DATE AND category = $1 AND product_filial = $2 AND lote = $3", [categoria, currentFilial, lote]);
-            const updatedData = await db.query('SELECT * FROM products WHERE product_filial = $1', [currentFilial]);
+            await pool.query("DELETE FROM products WHERE date < CURRENT_DATE AND category = $1 AND product_filial = $2 AND lote = $3", [categoria, currentFilial, lote]);
+            const updatedData = await pool.query('SELECT * FROM products WHERE product_filial = $1', [currentFilial]);
             const dados = updatedData.rows;
             res.render('deleteProduct.ejs', { dados, text });
           }
@@ -226,11 +226,11 @@ app.post("/constProduct", async (req, res) => {
   const consulta = req.body.consulta;
   const currentFilial = req.session.passport.user.filial;
 
-  const tabela = await db.query('SELECT * FROM products WHERE product_filial = $1', [currentFilial]);
-  const retirada = await db.query("SELECT * FROM products WHERE date <= CURRENT_DATE + INTERVAL '1 months' AND date > CURRENT_DATE AND category = $1 AND product_filial = $2", [categoria, currentFilial]);
-  const desconto = await db.query("SELECT * FROM products WHERE date <= CURRENT_DATE + INTERVAL '4 months' AND date > CURRENT_DATE + INTERVAL '1 months' AND category = $1 AND product_filial = $2", [categoria, currentFilial]);
-  const alimentos = await db.query("SELECT * FROM products WHERE date <= CURRENT_DATE + INTERVAL '3 months' AND category = $1 AND product_filial = $2", ["Alimentos", currentFilial]);
-  const vencidos = await db.query("SELECT * FROM products WHERE date < CURRENT_DATE AND category = $1 AND product_filial = $2", [categoria, currentFilial]);
+  const tabela = await pool.query('SELECT * FROM products WHERE product_filial = $1', [currentFilial]);
+  const retirada = await pool.query("SELECT * FROM products WHERE date <= CURRENT_DATE + INTERVAL '1 months' AND date > CURRENT_DATE AND category = $1 AND product_filial = $2", [categoria, currentFilial]);
+  const desconto = await pool.query("SELECT * FROM products WHERE date <= CURRENT_DATE + INTERVAL '4 months' AND date > CURRENT_DATE + INTERVAL '1 months' AND category = $1 AND product_filial = $2", [categoria, currentFilial]);
+  const alimentos = await pool.query("SELECT * FROM products WHERE date <= CURRENT_DATE + INTERVAL '3 months' AND category = $1 AND product_filial = $2", ["Alimentos", currentFilial]);
+  const vencidos = await pool.query("SELECT * FROM products WHERE date < CURRENT_DATE AND category = $1 AND product_filial = $2", [categoria, currentFilial]);
 
   try {
     if (categoria === '' || consulta === '') {
@@ -285,7 +285,7 @@ app.post("/cadProduct", async (req, res) => {
   }
 
   try {
-    const checkResult = await db.query("SELECT * FROM products WHERE lote = $1", [
+    const checkResult = await pool.query("SELECT * FROM products WHERE lote = $1", [
       prodLote,
     ]);
 
@@ -297,7 +297,7 @@ app.post("/cadProduct", async (req, res) => {
       //let type = "Tentativa de cadastro na filial errada";
       //res.render("cadProduct.ejs", {alert: type });
     } else {
-      const result = await db.query(
+      const result = await pool.query(
         "INSERT INTO products (lote, product_filial, name, date, category) VALUES ($1, $2, $3, $4, $5)",
         [prodLote, filial, prodName, prodDate, select]
       );
@@ -322,14 +322,14 @@ app.post('/register', async (req, res) => {
 
   try {
 
-    const { rows: emailRows } = await db.query("SELECT * FROM users WHERE email = $1", [email]);
+    const { rows: emailRows } = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
     if (emailRows.length > 0) {
       req.flash('error_msg', 'Email já cadastrado, tente logar!');
       return res.redirect('/login');
     }
 
 
-    const { rows: filialRows } = await db.query("SELECT * FROM users WHERE filial = $1", [filial]);
+    const { rows: filialRows } = await pool.query("SELECT * FROM users WHERE filial = $1", [filial]);
     if (filialRows.length > 0) {
       req.flash('error_msg', 'Filial já cadastrada!');
       return res.redirect('/register');
@@ -337,7 +337,7 @@ app.post('/register', async (req, res) => {
 
 
     const hash = await bcryptjs.hash(password, saltRounds);
-    await db.query(
+    await pool.query(
       "INSERT INTO users (filial, email, password) VALUES ($1, $2, $3)",
       [parseInt(filial), email, hash]
     );
@@ -391,7 +391,7 @@ app.post('/login', (req, res, next) => {
 
 passport.use(new Strategy(async function verify(username, password, cb) {
   try {
-    const result = await db.query("SELECT * FROM users WHERE email = $1", [username]);
+    const result = await pool.query("SELECT * FROM users WHERE email = $1", [username]);
 
     if (result.rows.length === 0) {
       return cb(null, false, { message: "Usuário não encontrado!" });
