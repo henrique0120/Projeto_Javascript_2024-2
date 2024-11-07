@@ -24,7 +24,7 @@ const saltRounds = 10;
 
 const pool = new Pool({
   user: 'postgres',
-  host: 'postgres.railway.internal',
+  host: 'postgresql://postgres:DYOUzXYpMsuiEiWoeqNYcwfKiomrGdmS@autorack.proxy.rlwy.net:45179/railway',
   database: 'railway',
   password: 'DYOUzXYpMsuiEiWoeqNYcwfKiomrGdmS',
   port: 5432
