@@ -13,14 +13,23 @@ const app = express();
 const port = 3000;
 const saltRounds = 10;
 
-
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'projeto',
-  password: '123',
-  port: 5432
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false, // Necessário para conexão segura em Railway
+  },
 });
+
+module.exports = pool;
+
+
+//const pool = new Pool({
+// user: 'postgres',
+//host: 'localhost',
+//database: 'projeto',
+//password: '123',
+//port: 5432
+//});
 
 const pgSession = connectPgSimple(session);
 
