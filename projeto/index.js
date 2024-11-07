@@ -5,7 +5,7 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 import flash from "connect-flash";
 
 const { Pool } = pg;
@@ -13,21 +13,14 @@ const app = express();
 const port = 3000;
 const saltRounds = 10;
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false, // Necessário para conexão segura em Railway
-  },
-});
 
-module.exports = pool;
-//const pool = new Pool({
-//  user: 'postgres',
-// host: 'localhost',
-//database: 'projeto',
-// password: '123',
-// port: 5432
-//});
+const pool = new Pool({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'projeto',
+  password: '123',
+  port: 5432
+});
 
 const pgSession = connectPgSimple(session);
 
@@ -335,7 +328,7 @@ app.post('/register', async (req, res) => {
     }
 
 
-    const hash = await bcrypt.hash(password, saltRounds);
+    const hash = await bcryptjs.hash(password, saltRounds);
     await db.query(
       "INSERT INTO users (filial, email, password) VALUES ($1, $2, $3)",
       [parseInt(filial), email, hash]
@@ -399,7 +392,7 @@ passport.use(new Strategy(async function verify(username, password, cb) {
     const user = result.rows[0];
     const storedHashedPassword = user.password;
 
-    const validPassword = await bcrypt.compare(password, storedHashedPassword);
+    const validPassword = await bcryptjs.compare(password, storedHashedPassword);
 
     if (!validPassword) {
       return cb(null, false, { message: "Senha incorreta!" });
