@@ -13,6 +13,8 @@ const app = express();
 const port = 3000;
 const saltRounds = 10;
 
+const pgSession = connectPgSimple(session);
+
 const pool = new Pool({
   connectionString: 'postgres://postgres:DYOUzXYpMsuiEiWoeqNYcwfKiomrGdmS@autorack.proxy.rlwy.net:45179/railway',
   ssl: {
@@ -30,7 +32,6 @@ export default pool;
 //port: 5432
 //});
 
-
 app.use(session({
   store: new pgSession({
     pool: pool,
@@ -42,7 +43,7 @@ app.use(session({
   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }
 }));
 
-const pgSession = connectPgSimple(session);
+
 
 //const db = new pg.Client({
 // user: "postgres",
