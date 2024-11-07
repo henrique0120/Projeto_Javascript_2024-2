@@ -44,14 +44,14 @@ app.use(session({
 }));
 
 
-const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "projeto",
-  password: "123",
-  port: 5432,
-});
-db.connect();
+//const db = new pg.Client({
+// user: "postgres",
+// host: "localhost",
+//database: "projeto",
+//password: "123",
+// port: 5432,
+//});
+//db.connect();
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
