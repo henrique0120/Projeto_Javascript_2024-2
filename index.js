@@ -20,7 +20,6 @@ const pool = new Pool({
   },
 });
 
-module.exports = pool;
 
 
 //const pool = new Pool({
