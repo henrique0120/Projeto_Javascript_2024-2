@@ -13,22 +13,22 @@ const app = express();
 const port = 3000;
 const saltRounds = 10;
 
-//const pool = new Pool({
-//  connectionString: process.env.DATABASE_URL,
-//  ssl: {
-//    rejectUnauthorized: false, // Necessário para conexão segura em Railway
-//  },
-//});
-
-
-
 const pool = new Pool({
-  user: 'postgres',
-  host: 'postgresql://postgres:DYOUzXYpMsuiEiWoeqNYcwfKiomrGdmS@autorack.proxy.rlwy.net:45179/railway',
-  database: 'railway',
-  password: 'DYOUzXYpMsuiEiWoeqNYcwfKiomrGdmS',
-  port: 5432
+  connectionString: 'postgres://postgres:DYOUzXYpMsuiEiWoeqNYcwfKiomrGdmS@autorack.proxy.rlwy.net:45179/railway',
+  ssl: {
+    rejectUnauthorized: false, // Necessário para conexão segura em Railway
+  },
 });
+
+export default pool;
+
+//const pool = new Pool({
+// user: 'postgres',
+// host: 'postgresql://postgres:DYOUzXYpMsuiEiWoeqNYcwfKiomrGdmS@autorack.proxy.rlwy.net:45179/railway',
+//database: 'railway',
+// password: 'DYOUzXYpMsuiEiWoeqNYcwfKiomrGdmS',
+//port: 5432
+//});
 
 const pgSession = connectPgSimple(session);
 
