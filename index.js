@@ -30,7 +30,6 @@ export default pool;
 //port: 5432
 //});
 
-const pgSession = connectPgSimple(session);
 
 app.use(session({
   store: new pgSession({
@@ -43,6 +42,7 @@ app.use(session({
   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }
 }));
 
+const pgSession = connectPgSimple(session);
 
 //const db = new pg.Client({
 // user: "postgres",
