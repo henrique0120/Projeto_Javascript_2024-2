@@ -6,17 +6,26 @@ html,
 body {
     height: 100%;
     margin: 0;
-
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
 }
 
-.aa {
-    margin-left: 5px;
-    background-color: red;
-    transition: background-color 0.3s ease;
+.img-crop {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100%;
 }
 
-.aa:hover {
-    background-color: darkred;
+
+body .login {
+    background-image: url(https://marcasmais.com.br/wp-content/uploads/2020/07/Farm%C3%A1cias-Pague-Menos.jpg);
+    ;
+}
+
+body .register {
+    background-image: url(https://marcasmais.com.br/wp-content/uploads/2020/07/Farm%C3%A1cias-Pague-Menos.jpg);
 }
 
 main {
@@ -34,8 +43,22 @@ body {
     margin: 0;
 }
 
-header,
-footer {
+/*.id_footer {
+    align-items: center;
+}
+*/
+
+nav ul li:hover {
+    background-color: rgb(224, 224, 224);
+    border-radius: 7px;
+
+}
+
+header {
+    flex: 0 0 auto;
+}
+
+/*.id_footer {
     flex: 0 0 auto;
     display: flex;
     justify-content: center;
@@ -44,12 +67,25 @@ footer {
     position: relative;
     flex: 0 0 auto;
 }
+*/
+
+nav {
+    background-color: rgb(33, 37, 41);
+}
+
+.dropdown ul a:hover {
+    background-color: rgb(224, 224, 224);
+}
 
 .dropdown {
     margin-right: 30px;
     position: absolute;
+    /* Posiciona o dropdown absolutamente em relação à navbar */
     right: 0;
+    /* Alinha o dropdown à direita da navbar */
 
+    /* Posiciona o dropdown logo abaixo da navbar */
+    /* Outros estilos para o dropdown */
 }
 
 /* CUSTOMIZE THE CAROUSEL
@@ -57,7 +93,7 @@ footer {
 
 /* Carousel base class */
 .carousel {
-    margin-bottom: 4rem;
+    margin-bottom: 6rem;
 }
 
 /* Since positioning the image, we need to help out the caption */
@@ -66,9 +102,19 @@ footer {
     z-index: 10;
 }
 
+/* Cores carrosel */
+.carousel-caption p {
+    color: whitesmoke;
+    text-shadow: 2px 2px 1px red;
+}
+
+.carousel-caption h1 {
+    text-shadow: 2px 2px 1px red;
+    color: whitesmoke;
+}
+
 /* Declare heights because of positioning of img element */
 .carousel-item {
-
     height: 32rem;
 }
 
@@ -84,9 +130,13 @@ footer {
   -------------------------------------------------- */
 
 /* Center align the text within the three columns below the carousel */
+
+
 .marketing .col-lg-4 {
     margin-bottom: 1.5rem;
     text-align: center;
+    color: white;
+    text-shadow: 2px 2px 1px red;
 }
 
 /* rtl:begin:ignore */

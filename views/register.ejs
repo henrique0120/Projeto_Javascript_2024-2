@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="pt-BR" data-bs-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,24 +13,37 @@
     <link rel="stylesheet" href="/styles/main.css" />
   </head>
 
-  <body class="d-flex align-items-center justify-content-center vh-100">
+  <div class="p-3 text-dark bg-light border border-4 border-danger rounded-3">
+  <body class="register d-flex align-items-center justify-content-center vh-100">
     <main class="form-signin m-auto">
       <form action="/register" method="POST">
+        <div class="text-center">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Logo_Farm%C3%A1cias_Pague_Menos.png" class="rounded h-25 d-inline-block" style="width: 150px;" alt="">
+          
+        </div>
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Cadastre um email:</label>
-          <input type="email" class="form-control form-control-lg w-100" name="username" />
+          <input type="email" class="form-control form-control-lg w-100 bg-light text-dark border-danger border-2" name="username" />
         </div>
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">Crie uma senha:</label>
-          <input type="password" class="form-control form-control-lg w-100" name="password" />
+          <input type="password" class="form-control form-control-lg w-100 bg-light text-dark border-danger border-2" name="password" />
         </div>
 
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">Cadastre sua filial:</label>
-          <input type="text" class="form-control form-control-lg w-100" name="filial" />
+          <input type="text" class="form-control form-control-lg w-100 bg-light text-dark border-danger border-2" name="filial" />
         </div>
 
+
+       
+        
+
         <style>
+          body{
+    background-image: url(https://marcasmais.com.br/wp-content/uploads/2020/07/Farm%C3%A1cias-Pague-Menos.jpg);
+}
+
           #formHelp {
             font-size: 1.25rem;
           }
@@ -47,8 +60,14 @@
             <%= success_msg %>
           </div>
           <% } %>
-        <button type="submit" class="btn btn-primary btn-lg">Me registrar</button>
-        <a class="btn btn-primary" href="/login" role="button">Fazer login</a>
+
+        <div class="d-grid gap-2">
+          <button type="submit" class="btn btn-outline-light btn-lg bg-danger border-dark">Me Registrar</button>
+          <a class="btn btn-outline-light btn-lg bg-danger border-dark" href="/login" role="button">Fazer Login</a>
+          </div>
+
+        </div>
+      </div>
       </form>
     </main>
   </body>
