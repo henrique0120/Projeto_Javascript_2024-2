@@ -15,7 +15,7 @@ const saltRounds = 10;
 
 const pgSession = connectPgSimple(session);
 
-const pool = new Pool({
+/*const pool = new Pool({
   connectionString: 'postgresql://postgres:NfNAgYTbxGoIKzpdpALByPyPisIJAUGj@junction.proxy.rlwy.net:36923/railway',
   ssl: {
     rejectUnauthorized: false,
@@ -23,16 +23,16 @@ const pool = new Pool({
 });
 
 export default pool;
+*/
 
-
-/*const pool = new Pool({
+const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
   database: 'projeto',
   password: '123',
   port: 5432
 });
-*/
+
 
 app.use(session({
   store: new pgSession({
