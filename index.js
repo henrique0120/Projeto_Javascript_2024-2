@@ -121,6 +121,10 @@ app.get("/constProduct", async (req, res) => {
   }
 });
 
+app.get("/tutorial", (req, res) => {
+  res.render("tutorial.ejs");
+});
+
 app.get("/deleteProduct", async (req, res) => {
   let text = '';
   try {
