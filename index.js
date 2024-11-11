@@ -15,7 +15,7 @@ const saltRounds = 10;
 
 const pgSession = connectPgSimple(session);
 
-/*const pool = new Pool({
+const pool = new Pool({
   connectionString: 'postgresql://postgres:NfNAgYTbxGoIKzpdpALByPyPisIJAUGj@junction.proxy.rlwy.net:36923/railway',
   ssl: {
     rejectUnauthorized: false,
@@ -23,16 +23,16 @@ const pgSession = connectPgSimple(session);
 });
 
 export default pool;
-*/
 
-const pool = new Pool({
+
+/*const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
   database: 'projeto',
   password: '123',
   port: 5432
 });
-
+*/
 
 app.use(session({
   store: new pgSession({
@@ -390,7 +390,7 @@ app.post('/login', (req, res, next) => {
         return res.redirect('/login');
       }
       req.flash('success_msg', 'Login realizado com sucesso!');
-      res.redirect('/principal'); 
+      res.redirect('/principal');
     });
   })(req, res, next);
 });
