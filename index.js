@@ -65,6 +65,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
+  if (req.isAuthenticated() && req.session.passport) {
+    res.locals.currentEmail = req.session.passport.user.email;
+  } else {
+    res.locals.currentEmail = null;
+  }
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   next();
