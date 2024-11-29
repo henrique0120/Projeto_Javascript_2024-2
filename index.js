@@ -288,40 +288,50 @@ app.post("/cadProduct", async (req, res) => {
   const prodLote = req.body.prodLote;
   const prodName = req.body.prodName;
   const prodDate = req.body.prodDate;
-  //const prodFilial = req.body.prodFilial;
   const select = req.body.select;
+
+  if (!req.session.passport || !req.session.passport.user || !req.session.passport.user.filial) {
+    return res.render("cadProduct.ejs", { alert: "Erro na sessão. Faça login novamente!" });
+  }
+
   const filial = req.session.passport.user.filial;
 
   if (!prodLote || !prodName || !prodDate || !select) {
     return res.render("cadProduct.ejs", { alert: "Por favor, preencha todos os campos!" });
   }
 
+
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  const formattedDate = prodDate.includes("/")
+    ? prodDate.split("/").reverse().join("-")
+    : prodDate;
+
+  if (!dateRegex.test(formattedDate)) {
+    return res.render("cadProduct.ejs", { alert: "A data deve estar no formato AAAA-MM-DD!" });
+  }
+
   try {
-    const checkResult = await pool.query("SELECT * FROM products WHERE lote = $1", [
-      prodLote,
-    ]);
+    const checkResult = await pool.query("SELECT * FROM products WHERE lote = $1", [prodLote]);
 
     if (checkResult.rows.length > 0) {
       let type = "Lote já existente, cadastre outro ou consulte!";
-      res.render("cadProduct.ejs", { alert: type });
-      //res.send("Email already exists. Try logging in.");
-      //} //if (parseInt(prodFilial) != filial){
-      //let type = "Tentativa de cadastro na filial errada";
-      //res.render("cadProduct.ejs", {alert: type });
-    } else {
-      const result = await pool.query(
-        "INSERT INTO products (lote, product_filial, name, date, category) VALUES ($1, $2, $3, $4, $5)",
-        [prodLote, filial, prodName, prodDate, select]
-      );
-      let check = "Seu produto foi cadastrado!";
-      res.render("cadProduct.ejs", { alert: check });
+      return res.render("cadProduct.ejs", { alert: type });
     }
+
+    await pool.query(
+      "INSERT INTO products (lote, product_filial, name, date, category) VALUES ($1, $2, $3, $4, $5)",
+      [prodLote, filial, prodName, formattedDate, select]
+    );
+
+    let check = "Seu produto foi cadastrado!";
+    return res.render("cadProduct.ejs", { alert: check });
 
   } catch (err) {
     console.log(err);
+    return res.render("cadProduct.ejs", { alert: "Ocorreu um erro ao processar o cadastro. Tente novamente." });
   }
-
 });
+
 
 app.post('/register', async (req, res) => {
   const { username: email, password, filial } = req.body;
