@@ -16,7 +16,7 @@ const saltRounds = 10;
 const pgSession = connectPgSimple(session);
 
 const pool = new Pool({
-  connectionString: 'postgresql://postgres:NfNAgYTbxGoIKzpdpALByPyPisIJAUGj@junction.proxy.rlwy.net:36923/railway',
+  connectionString: 'postgresql://postgres:gMxQCRIIPKEuDNAOUDShYiUqbaiBknkE@junction.proxy.rlwy.net:29110/railway',
   ssl: {
     rejectUnauthorized: false,
   },
