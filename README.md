@@ -25,7 +25,7 @@ CREATE TABLE sessions (
 
 2 - Baixar o Node.JS, tem tutorial no youtube, porém é simples.
 
-3 - Baixar o VSCode. Nenhuma extenção é obrigatória, mas tem várias úteis. Use as que preferir.
+3 - Baixar o VSCode. Nenhuma extensão é obrigatória, mas tem várias úteis. Use as que preferir.
 
 4 - Ao baixar o VSCode e a pasta do projeto, é só acessar essa pasta através do VSCode, como qualquer outro projeto.
 
@@ -37,5 +37,5 @@ CREATE TABLE sessions (
 
 8 - Digite e execute "npm install" no terminal, para instalar as dependências e/ou certificar que estejam instaladas.
 
-9- Para finalmente rodar o projeto, digite e execute no terminal "nodemon index.js" e digite no navegador web "localhost:3000", que o projeto abrirá.
+9- Para finalmente rodar o projeto, digite e execute no terminal "nodem index.js" e digite no navegador web "localhost:3000", que o projeto abrirá.
 
